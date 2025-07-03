@@ -5,7 +5,6 @@ Projeto acadêmico da disciplina **Desenvolvimento de Sistemas para Web (55DSW)*
 ## Requisitos
 - Java 17
 - Maven 3
-- Node.js (opcional para o front-end)
 - MySQL 8+
 
 ## Configurando o banco de dados
@@ -24,9 +23,7 @@ mvn spring-boot:run
 
 A API estará disponível em `http://localhost:8080/filmes`.
 
-## Estrutura do projeto
-- **backend**: aplicação Spring Boot com JPA
-- **frontend**: (a ser desenvolvido) aplicação React
+
 
 ## Tecnologias
 - Spring Boot
@@ -34,3 +31,4 @@ A API estará disponível em `http://localhost:8080/filmes`.
 - Hibernate Validation
 - MySQL
 - React
+
