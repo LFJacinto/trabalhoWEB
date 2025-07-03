@@ -5,7 +5,6 @@ Projeto acadêmico da disciplina **Desenvolvimento de Sistemas para Web (55DSW)*
 ## Requisitos
 - Java 17
 - Maven 3
-- Node.js 18+
 - MySQL 8+
 
 ## Configurando o banco de dados
@@ -24,18 +23,7 @@ mvn spring-boot:run
 
 A API estará disponível em `http://localhost:8080/filmes`.
 
-## Rodando o front-end
-```
-cd frontend
-npm install
-npm run dev
-```
 
-O front-end React será servido em `http://localhost:3000` e consome a API do back-end.
-
-## Estrutura do projeto
-- **backend**: aplicação Spring Boot com JPA
-- **frontend**: aplicação React + Vite
 
 ## Tecnologias
 - Spring Boot
@@ -43,7 +31,4 @@ O front-end React será servido em `http://localhost:3000` e consome a API do ba
 - Hibernate Validation
 - MySQL
 - React
-- Vite
-- Axios
-- React Hook Form
-- Yup
+

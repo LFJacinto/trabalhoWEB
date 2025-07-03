@@ -3,7 +3,7 @@
 
 # Node
 node_modules/
-frontend/dist/
+
 
 # IDE
 .idea/
