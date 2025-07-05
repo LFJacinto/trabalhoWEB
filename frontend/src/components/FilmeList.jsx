@@ -32,7 +32,7 @@ export default function FilmeList() {
         />
         <button
           onClick={carregar}
-          className="bg-blue-600 text-white px-4 rounded-r hover:bg-blue-700"
+          className="bg-indigo-600 text-white px-4 rounded-r hover:bg-indigo-700"
         >
           Buscar
         </button>
@@ -40,7 +40,7 @@ export default function FilmeList() {
       {erro && <p className="text-red-600 mb-4">{erro}</p>}
       <div className="bg-white shadow rounded overflow-x-auto">
         <table className="min-w-full text-left text-sm">
-          <thead className="bg-gray-100">
+          <thead className="bg-indigo-50">
             <tr>
               <th className="px-4 py-2">Título</th>
               <th className="px-4 py-2">Gênero</th>
@@ -62,13 +62,13 @@ export default function FilmeList() {
                 <td className="px-4 py-2 space-x-2 text-right">
                   <Link
                     to={`/filme/${f.id}`}
-                    className="text-blue-600 hover:underline"
+                    className="text-indigo-600 hover:underline"
                   >
                     ver detalhes
                   </Link>
                   <Link
                     to={`/editar/${f.id}`}
-                    className="text-green-600 hover:underline"
+                    className="text-emerald-600 hover:underline"
                   >
                     editar
                   </Link>
