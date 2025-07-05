@@ -9,7 +9,7 @@ export default function FilmeList() {
 
   const carregar = async () => {
     try {
-      const res = await api.get('/filmes', { params: busca ? { titulo: busca } : {} });
+        const res = await api.get('/filmes', { params: busca ? { titulo: busca } : {} });
       setFilmes(res.data);
       setErro('');
     } catch (e) {

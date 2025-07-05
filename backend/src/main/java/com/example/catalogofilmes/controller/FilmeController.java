@@ -15,7 +15,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/filmes")
-@CrossOrigin(origins = "http://localhost:3000")
+@CrossOrigin(origins = "*")
 
 public class FilmeController {
 
@@ -60,8 +60,8 @@ public class FilmeController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Filme> atualizar(@PathVariable Long id,
-                                           @RequestBody @Valid FilmeDTO dto) {
+    public ResponseEntity<?> atualizar(@PathVariable Long id,
+                                       @RequestBody @Valid FilmeDTO dto) {
         return filmeRepository.findById(id).map(filme -> {
             Genero genero = generoRepository.findById(dto.generoId()).orElse(null);
             Diretor diretor = diretorRepository.findById(dto.diretorId()).orElse(null);

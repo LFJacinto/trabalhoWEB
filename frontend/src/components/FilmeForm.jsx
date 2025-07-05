@@ -1,84 +1,127 @@
-import React, { useEffect, useState } from 'react';
-import { useForm } from 'react-hook-form';
-import { yupResolver } from '@hookform/resolvers/yup';
-import * as yup from 'yup';
+import cdReact, { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import api from '../api';
 
-const schema = yup.object({
-  titulo: yup.string().required('Informe o t\u00edtulo'),
-  descricao: yup.string(),
-  generoId: yup.number().required('Informe o g\u00eanero'),
-  diretorId: yup.number().required('Informe o diretor'),
-});
-
 export default function FilmeForm({ edit }) {
   const { id } = useParams();
+  const navigate = useNavigate();
+
+  const [titulo, setTitulo] = useState('');
+  const [descricao, setDescricao] = useState('');
+  const [generoId, setGeneroId] = useState('');
+  const [diretorId, setDiretorId] = useState('');
   const [generos, setGeneros] = useState([]);
   const [diretores, setDiretores] = useState([]);
-  const navigate = useNavigate();
-  const { register, handleSubmit, setValue, formState: { errors } } = useForm({
-    resolver: yupResolver(schema)
-  });
+  const [erro, setErro] = useState('');
+
+  const carregar = async () => {
+    try {
+      const [resGeneros, resDiretores] = await Promise.all([
+        api.get('/generos'),
+        api.get('/diretores'),
+      ]);
+      setGeneros(resGeneros.data);
+      setDiretores(resDiretores.data);
+    } catch {
+      setErro('Erro ao carregar gêneros ou diretores');
+    }
+
+    if (edit) {
+      try {
+        const res = await api.get(`/filmes/${id}`);
+        const filme = res.data;
+        setTitulo(filme.titulo);
+        setDescricao(filme.descricao);
+        setGeneroId(filme.genero?.id);
+        setDiretorId(filme.diretor?.id);
+      } catch {
+        setErro('Erro ao carregar filme');
+      }
+    }
+  };
 
   useEffect(() => {
-    api.get('/generos').then(res => setGeneros(res.data));
-    api.get('/diretores').then(res => setDiretores(res.data));
-    if (edit && id) {
-      api.get(`/filmes/${id}`).then(res => {
-        setValue('titulo', res.data.titulo);
-        setValue('descricao', res.data.descricao);
-        setValue('generoId', res.data.genero.id);
-        setValue('diretorId', res.data.diretor.id);
-      });
-    }
-  }, [edit, id, setValue]);
+    carregar();
+  }, []);
 
-  const onSubmit = async (data) => {
+  const salvar = async () => {
     try {
-      if (edit && id) {
-        await api.put(`/filmes/${id}`, data);
+      const dto = { titulo, descricao, generoId, diretorId };
+      if (edit) {
+        await api.put(`/filmes/${id}`, dto);
       } else {
-        await api.post('/filmes', data);
+        await api.post('/filmes', dto);
       }
       navigate('/');
     } catch {
-      alert('Erro ao salvar');
+      setErro('Erro ao salvar filme');
     }
   };
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)}>
-      <div>
-        <label>T\u00edtulo</label>
-        <input {...register('titulo')} />
-        <span>{errors.titulo?.message}</span>
+      <div className="max-w-xl mx-auto mt-10 px-4">
+        <h1 className="text-2xl font-bold mb-6">{edit ? 'Editar Filme' : 'Novo Filme'}</h1>
+
+        {erro && <p className="text-red-600 mb-4">{erro}</p>}
+
+        <div className="space-y-4">
+          <div>
+            <label className="block text-sm font-medium">Título</label>
+            <input
+                className="w-full border border-gray-300 rounded px-4 py-2"
+                value={titulo}
+                onChange={(e) => setTitulo(e.target.value)}
+            />
+          </div>
+
+          <div>
+            <label className="block text-sm font-medium">Descrição</label>
+            <textarea
+                className="w-full border border-gray-300 rounded px-4 py-2"
+                value={descricao}
+                onChange={(e) => setDescricao(e.target.value)}
+            />
+          </div>
+
+          <div>
+            <label className="block text-sm font-medium">Gênero</label>
+            <select
+                className="w-full border border-gray-300 rounded px-4 py-2"
+                value={generoId}
+                onChange={(e) => setGeneroId(e.target.value)}
+            >
+              <option value="">Selecione</option>
+              {generos.map((g) => (
+                  <option key={g.id} value={g.id}>
+                    {g.nome}
+                  </option>
+              ))}
+            </select>
+          </div>
+
+          <div>
+            <label className="block text-sm font-medium">Diretor</label>
+            <select
+                className="w-full border border-gray-300 rounded px-4 py-2"
+                value={diretorId}
+                onChange={(e) => setDiretorId(e.target.value)}
+            >
+              <option value="">Selecione</option>
+              {diretores.map((d) => (
+                  <option key={d.id} value={d.id}>
+                    {d.nome}
+                  </option>
+              ))}
+            </select>
+          </div>
+
+          <button
+              onClick={salvar}
+              className="bg-blue-600 text-white px-6 py-2 rounded hover:bg-blue-700 transition"
+          >
+            Salvar
+          </button>
+        </div>
       </div>
-      <div>
-        <label>Descri\u00e7\u00e3o</label>
-        <textarea {...register('descricao')} />
-      </div>
-      <div>
-        <label>G\u00eanero</label>
-        <select {...register('generoId')} defaultValue="">
-          <option value="" disabled>Selecione</option>
-          {generos.map(g => (
-            <option key={g.id} value={g.id}>{g.nome}</option>
-          ))}
-        </select>
-        <span>{errors.generoId?.message}</span>
-      </div>
-      <div>
-        <label>Diretor</label>
-        <select {...register('diretorId')} defaultValue="">
-          <option value="" disabled>Selecione</option>
-          {diretores.map(d => (
-            <option key={d.id} value={d.id}>{d.nome}</option>
-          ))}
-        </select>
-        <span>{errors.diretorId?.message}</span>
-      </div>
-      <button type="submit">Salvar</button>
-    </form>
   );
 }
