@@ -59,8 +59,13 @@ export default function FilmeForm({ edit }) {
   };
 
   return (
+
     <div className="film-form">
       <h1>{edit ? 'Editar Filme' : 'Novo Filme'}</h1>
+
+      <div className="max-w-xl mx-auto mt-10 px-4 bg-white shadow rounded p-6">
+        <h1 className="text-2xl font-bold mb-6">{edit ? 'Editar Filme' : 'Novo Filme'}</h1>
+
 
       {erro && <p className="error">{erro}</p>}
 
@@ -104,6 +109,14 @@ export default function FilmeForm({ edit }) {
             <option key={d.id} value={d.id}>{d.nome}</option>
           ))}
         </select>
+
+          <button
+              onClick={salvar}
+              className="bg-indigo-600 text-white px-6 py-2 rounded hover:bg-indigo-700 transition"
+          >
+            Salvar
+          </button>
+        </div>
       </div>
 
       <button onClick={salvar} className="btn btn-primary">Salvar</button>

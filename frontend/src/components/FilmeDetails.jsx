@@ -38,13 +38,40 @@ export default function FilmeDetails() {
       <p><strong>Diretor:</strong> {filme.diretor?.nome}</p>
       <h3>Avaliações</h3>
       <ul>
+
+  if (!filme) return <div className="mt-6 text-center">{erro || 'Carregando...'}</div>;
+
+  return (
+    <div className="max-w-xl mx-auto mt-10 bg-white shadow rounded p-6">
+      <h2 className="text-2xl font-bold mb-2">{filme.titulo}</h2>
+      <p className="mb-4 text-gray-700">{filme.descricao}</p>
+      <p className="mb-1"><span className="font-medium">Gênero:</span> {filme.genero?.nome}</p>
+      <p className="mb-4"><span className="font-medium">Diretor:</span> {filme.diretor?.nome}</p>
+      <h3 className="text-lg font-semibold mb-2">Avaliações</h3>
+      <ul className="mb-4 list-disc list-inside space-y-1">
         {filme.avaliacoes?.map(a => (
           <li key={a.id}>{a.nota} - {a.comentario}</li>
         ))}
       </ul>
+
       <div>
         <button onClick={() => navigate(`/editar/${filme.id}`)} className="btn btn-primary">Editar</button>
         <button onClick={remover} className="btn btn-danger" style={{ marginLeft: '8px' }}>Excluir</button>
+
+      <div className="space-x-2">
+        <button
+          onClick={() => navigate(`/editar/${filme.id}`)}
+          className="bg-emerald-600 text-white px-4 py-2 rounded hover:bg-emerald-700"
+        >
+          Editar
+        </button>
+        <button
+          onClick={remover}
+          className="bg-rose-600 text-white px-4 py-2 rounded hover:bg-rose-700"
+        >
+          Excluir
+        </button>
+
       </div>
     </div>
   );
