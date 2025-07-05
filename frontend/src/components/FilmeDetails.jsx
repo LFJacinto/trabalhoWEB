@@ -27,22 +27,25 @@ export default function FilmeDetails() {
     }
   };
 
-  if (!filme) return <div>{erro || 'Carregando...'}</div>;
+  if (!filme) return <div className="main-content">{erro || 'Carregando...'}</div>;
+
 
   return (
-    <div>
+    <div className="film-details">
       <h2>{filme.titulo}</h2>
       <p>{filme.descricao}</p>
-      <p>G\u00eanero: {filme.genero?.nome}</p>
-      <p>Diretor: {filme.diretor?.nome}</p>
-      <h3>Avalia\u00e7\u00f5es</h3>
+      <p><strong>Gênero:</strong> {filme.genero?.nome}</p>
+      <p><strong>Diretor:</strong> {filme.diretor?.nome}</p>
+      <h3>Avaliações</h3>
       <ul>
         {filme.avaliacoes?.map(a => (
           <li key={a.id}>{a.nota} - {a.comentario}</li>
         ))}
       </ul>
-      <button onClick={() => navigate(`/editar/${filme.id}`)}>Editar</button>
-      <button onClick={remover}>Excluir</button>
+      <div>
+        <button onClick={() => navigate(`/editar/${filme.id}`)} className="btn btn-primary">Editar</button>
+        <button onClick={remover} className="btn btn-danger" style={{ marginLeft: '8px' }}>Excluir</button>
+      </div>
     </div>
   );
 }

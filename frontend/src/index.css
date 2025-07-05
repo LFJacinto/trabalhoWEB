@@ -1,3 +1,153 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+body {
+  font-family: 'Poppins', sans-serif;
+  background-color: #f3f3f3;
+  color: #222;
+  margin: 0;
+}
+
+.app {
+  min-height: 100vh;
+}
+
+.container {
+  width: 90%;
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+.site-header {
+  background-color: #1a1a1a;
+  color: #fff;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.header-content {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px 0;
+}
+
+.logo a {
+  color: #f5c518;
+  font-size: 1.25rem;
+  font-weight: 600;
+  text-decoration: none;
+}
+
+nav a {
+  color: #fff;
+  margin-left: 16px;
+  text-decoration: none;
+}
+
+nav a:hover {
+  color: #f5c518;
+}
+
+.main-content {
+  padding: 20px 0;
+}
+
+.search-bar {
+  display: flex;
+  margin-bottom: 16px;
+}
+
+.search-input {
+  flex-grow: 1;
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-right: none;
+  border-radius: 4px 0 0 4px;
+}
+
+.btn {
+  cursor: pointer;
+  padding: 8px 12px;
+  border: none;
+  border-radius: 4px;
+  font-weight: 600;
+}
+
+.btn-primary {
+  background-color: #f5c518;
+  color: #000;
+}
+
+.btn-primary:hover {
+  background-color: #e4b40a;
+}
+
+.btn-danger {
+  background-color: #d9534f;
+  color: #fff;
+}
+
+.btn-danger:hover {
+  background-color: #c9302c;
+}
+
+.film-table {
+  width: 100%;
+  border-collapse: collapse;
+  background: #fff;
+}
+
+.film-table th,
+.film-table td {
+  padding: 12px;
+  border-bottom: 1px solid #e5e5e5;
+}
+
+.film-table th {
+  background-color: #fafafa;
+  text-align: left;
+}
+
+.film-table tr:nth-child(even) {
+  background-color: #f9f9f9;
+}
+
+.actions a {
+  margin-left: 8px;
+  color: #0366d6;
+  text-decoration: none;
+}
+
+.actions a:hover {
+  text-decoration: underline;
+}
+
+.error {
+  color: #d9534f;
+  margin-bottom: 16px;
+}
+
+.film-details,
+.film-form {
+  background: #fff;
+  padding: 20px;
+  margin-top: 24px;
+  border-radius: 4px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.form-group {
+  margin-bottom: 16px;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 4px;
+  font-weight: 500;
+}
+
+.form-group input,
+.form-group textarea,
+.form-group select {
+  width: 100%;
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
