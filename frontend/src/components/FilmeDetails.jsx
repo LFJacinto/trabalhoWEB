@@ -27,6 +27,18 @@ export default function FilmeDetails() {
     }
   };
 
+  if (!filme) return <div className="main-content">{erro || 'Carregando...'}</div>;
+
+
+  return (
+    <div className="film-details">
+      <h2>{filme.titulo}</h2>
+      <p>{filme.descricao}</p>
+      <p><strong>Gênero:</strong> {filme.genero?.nome}</p>
+      <p><strong>Diretor:</strong> {filme.diretor?.nome}</p>
+      <h3>Avaliações</h3>
+      <ul>
+
   if (!filme) return <div className="mt-6 text-center">{erro || 'Carregando...'}</div>;
 
   return (
@@ -41,6 +53,11 @@ export default function FilmeDetails() {
           <li key={a.id}>{a.nota} - {a.comentario}</li>
         ))}
       </ul>
+
+      <div>
+        <button onClick={() => navigate(`/editar/${filme.id}`)} className="btn btn-primary">Editar</button>
+        <button onClick={remover} className="btn btn-danger" style={{ marginLeft: '8px' }}>Excluir</button>
+
       <div className="space-x-2">
         <button
           onClick={() => navigate(`/editar/${filme.id}`)}
@@ -54,6 +71,7 @@ export default function FilmeDetails() {
         >
           Excluir
         </button>
+
       </div>
     </div>
   );
