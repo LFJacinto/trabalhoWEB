@@ -1,4 +1,4 @@
-import cdReact, { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import api from '../api';
 
@@ -59,7 +59,7 @@ export default function FilmeForm({ edit }) {
   };
 
   return (
-      <div className="max-w-xl mx-auto mt-10 px-4">
+      <div className="max-w-xl mx-auto mt-10 px-4 bg-white shadow rounded p-6">
         <h1 className="text-2xl font-bold mb-6">{edit ? 'Editar Filme' : 'Novo Filme'}</h1>
 
         {erro && <p className="text-red-600 mb-4">{erro}</p>}

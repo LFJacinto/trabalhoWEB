@@ -27,22 +27,34 @@ export default function FilmeDetails() {
     }
   };
 
-  if (!filme) return <div>{erro || 'Carregando...'}</div>;
+  if (!filme) return <div className="mt-6 text-center">{erro || 'Carregando...'}</div>;
 
   return (
-    <div>
-      <h2>{filme.titulo}</h2>
-      <p>{filme.descricao}</p>
-      <p>G\u00eanero: {filme.genero?.nome}</p>
-      <p>Diretor: {filme.diretor?.nome}</p>
-      <h3>Avalia\u00e7\u00f5es</h3>
-      <ul>
+    <div className="max-w-xl mx-auto mt-10 bg-white shadow rounded p-6">
+      <h2 className="text-2xl font-bold mb-2">{filme.titulo}</h2>
+      <p className="mb-4 text-gray-700">{filme.descricao}</p>
+      <p className="mb-1"><span className="font-medium">Gênero:</span> {filme.genero?.nome}</p>
+      <p className="mb-4"><span className="font-medium">Diretor:</span> {filme.diretor?.nome}</p>
+      <h3 className="text-lg font-semibold mb-2">Avaliações</h3>
+      <ul className="mb-4 list-disc list-inside space-y-1">
         {filme.avaliacoes?.map(a => (
           <li key={a.id}>{a.nota} - {a.comentario}</li>
         ))}
       </ul>
-      <button onClick={() => navigate(`/editar/${filme.id}`)}>Editar</button>
-      <button onClick={remover}>Excluir</button>
+      <div className="space-x-2">
+        <button
+          onClick={() => navigate(`/editar/${filme.id}`)}
+          className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700"
+        >
+          Editar
+        </button>
+        <button
+          onClick={remover}
+          className="bg-red-600 text-white px-4 py-2 rounded hover:bg-red-700"
+        >
+          Excluir
+        </button>
+      </div>
     </div>
   );
 }
