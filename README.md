@@ -8,17 +8,16 @@ Projeto acadêmico da disciplina **Desenvolvimento de Sistemas para Web (55DSW)*
 - MySQL 8+
 
 ## Configurando o banco de dados
-Crie um banco chamado `catalogo_filmes` e ajuste **username** e **password** em `backend/src/main/resources/application.properties`.
+Crie um banco chamado `catalogo` e ajuste **username** e **password** em `backend/src/main/resources/application.properties`.
 
 ```
 mysql -u root -p
-CREATE DATABASE catalogo_filmes DEFAULT CHARACTER SET utf8mb4 DEFAULT COLLATE utf8mb4_unicode_ci;
+CREATE DATABASE catalogo DEFAULT CHARACTER SET utf8mb4 DEFAULT COLLATE utf8mb4_unicode_ci;
 ```
 
 ## Rodando o back-end
 ```
-cd backend
-mvn spring-boot:run
+executar CatalogoFilmesApplication
 ```
 
 A API estará disponível em `http://localhost:8080/filmes`.

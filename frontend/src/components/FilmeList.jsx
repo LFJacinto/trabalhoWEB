@@ -56,9 +56,8 @@ export default function FilmeList() {
           <table className="min-w-full text-sm text-left">
             <thead className="bg-indigo-100">
             <tr>
-              <th className="px-4 py-2 font-semibold">Título</th>
+              <th className="px-4 py-2 font-semibold ">Título</th>
               <th className="px-4 py-2 font-semibold">Gênero</th>
-              <th className="px-4 py-2 font-semibold">Média</th>
               <th className="px-4 py-2 font-semibold text-right">Ações</th>
             </tr>
             </thead>
@@ -67,12 +66,6 @@ export default function FilmeList() {
                 <tr key={f.id} className="border-t hover:bg-gray-50">
                   <td className="px-4 py-2">{f.titulo}</td>
                   <td className="px-4 py-2">{f.genero?.nome}</td>
-                  <td className="px-4 py-2">
-                    {(
-                        f.avaliacoes?.reduce((sum, a) => sum + a.nota, 0) /
-                        (f.avaliacoes?.length || 1)
-                    ).toFixed(1)}
-                  </td>
                   <td className="px-4 py-2 text-right space-x-3">
                     <Link to={`/filme/${f.id}`} className="text-blue-600 hover:underline">
                       Ver Detalhes  &nbsp;

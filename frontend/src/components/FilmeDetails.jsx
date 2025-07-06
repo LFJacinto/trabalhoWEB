@@ -42,7 +42,6 @@ export default function FilmeDetails() {
                 <span className="font-medium">Diretor:</span> {filme.diretor?.nome}
             </p>
 
-            <h3 className="text-lg font-semibold mb-2">Avaliações</h3>
             <ul className="mb-4 list-disc list-inside space-y-1">
                 {filme.avaliacoes?.map(a => (
                     <li key={a.id}>
