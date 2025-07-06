@@ -16,7 +16,6 @@ import java.util.List;
 @RestController
 @RequestMapping("/filmes")
 @CrossOrigin(origins = "*")
-
 public class FilmeController {
 
     private final FilmeRepository filmeRepository;
@@ -31,25 +30,35 @@ public class FilmeController {
         this.diretorRepository = diretorRepository;
     }
 
+    // Busca todos ou filtra por título
     @GetMapping
-    public List<Filme> listar() {
+    public List<Filme> listar(@RequestParam(required = false) String titulo) {
+        if (titulo != null && !titulo.isBlank()) {
+            return filmeRepository.buscarTodosPorTitulo(titulo);
+        }
         return filmeRepository.findAll();
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Filme> buscar(@PathVariable Long id) {
+    public ResponseEntity<Filme> buscarPorId(@PathVariable Long id) {
         return filmeRepository.findById(id)
                 .map(ResponseEntity::ok)
                 .orElse(ResponseEntity.notFound().build());
     }
 
     @PostMapping
-    public ResponseEntity<Filme> criar(@RequestBody @Valid FilmeDTO dto) {
+    public ResponseEntity<?> criar(@RequestBody @Valid FilmeDTO dto) {
         Genero genero = generoRepository.findById(dto.generoId()).orElse(null);
         Diretor diretor = diretorRepository.findById(dto.diretorId()).orElse(null);
-        if (genero == null || diretor == null) {
-            return ResponseEntity.badRequest().build();
+
+        if (genero == null) {
+            return ResponseEntity.badRequest().body("Gênero não encontrado.");
         }
+
+        if (diretor == null) {
+            return ResponseEntity.badRequest().body("Diretor não encontrado.");
+        }
+
         Filme filme = new Filme();
         filme.setTitulo(dto.titulo());
         filme.setDescricao(dto.descricao());
@@ -65,16 +74,22 @@ public class FilmeController {
         return filmeRepository.findById(id).map(filme -> {
             Genero genero = generoRepository.findById(dto.generoId()).orElse(null);
             Diretor diretor = diretorRepository.findById(dto.diretorId()).orElse(null);
-            if (genero == null || diretor == null) {
-                return ResponseEntity.badRequest().build();
+
+            if (genero == null) {
+                return ResponseEntity.badRequest().body("Gênero não encontrado.");
             }
+
+            if (diretor == null) {
+                return ResponseEntity.badRequest().body("Diretor não encontrado.");
+            }
+
             filme.setTitulo(dto.titulo());
             filme.setDescricao(dto.descricao());
             filme.setGenero(genero);
             filme.setDiretor(diretor);
             filmeRepository.save(filme);
             return ResponseEntity.ok(filme);
-        }).orElse(ResponseEntity.notFound().build());
+        }).orElse(ResponseEntity.status(404).body("Filme não encontrado."));
     }
 
     @DeleteMapping("/{id}")

@@ -6,42 +6,29 @@ import FilmeForm from './components/FilmeForm';
 
 export default function App() {
   return (
+      <div className="min-h-screen bg-gray-100">
+        {/* Cabeçalho */}
+        <header className="bg-indigo-700 shadow">
+          <div className="container mx-auto flex items-center justify-between px-4 py-4">
+            <h1 className="text-xl font-bold">
+              <Link to="/">Catálogo de Filmes</Link>
+            </h1>
+              <nav className="flex gap-4">
+                  <Link to="/" className="text-black hover:text-indigo-500 transition-colors">Home</Link>
+                  <Link to="/novo" className="text-black hover:text-indigo-500 transition-colors">Novo Filme</Link>
+              </nav>
+          </div>
+        </header>
 
-    <div className="app">
-      <header className="site-header">
-        <div className="container header-content">
-          <h1 className="logo">
-            <Link to="/">Catálogo de Filmes</Link>
-          </h1>
-          <nav>
-            <Link to="/">Home</Link>
-            <Link to="/novo">Novo Filme</Link>
-          </nav>
-        </div>
-      </header>
-      <main className="container main-content">
-
-    <div className="min-h-screen bg-gray-100">
-      <header className="bg-indigo-700 text-white shadow">
-        <div className="container mx-auto flex items-center justify-between px-4 py-4">
-          <h1 className="text-xl font-bold">
-            <Link to="/">Catálogo de Filmes</Link>
-          </h1>
-          <nav className="space-x-4">
-            <Link to="/" className="hover:text-indigo-200">Home</Link>
-            <Link to="/novo" className="hover:text-indigo-200">Novo Filme</Link>
-          </nav>
-        </div>
-      </header>
-      <main className="container mx-auto p-4">
-
-        <Routes>
-          <Route path="/" element={<FilmeList />} />
-          <Route path="/filme/:id" element={<FilmeDetails />} />
-          <Route path="/editar/:id" element={<FilmeForm edit />} />
-          <Route path="/novo" element={<FilmeForm />} />
-        </Routes>
-      </main>
-    </div>
+        {/* Conteúdo principal */}
+        <main className="container mx-auto p-4">
+          <Routes>
+            <Route path="/" element={<FilmeList />} />
+            <Route path="/filme/:id" element={<FilmeDetails />} />
+            <Route path="/editar/:id" element={<FilmeForm edit />} />
+            <Route path="/novo" element={<FilmeForm />} />
+          </Routes>
+        </main>
+      </div>
   );
 }
